@@ -1,8 +1,5 @@
 {
-  "basePackage": "eu.cineca_project.annotator-api",
-  "configPackage": "eu.cineca_project.annotator-api.config",
-  "apiPackage": "eu.cineca_project.annotator-api.controllers",
-  "modelPackage": "eu.cineca_project.annotator-api.model",
+  "basePackage": "eu.cineca_project",
   "groupId": "eu.cineca_project",
   "artifactId": "annotator-api"
 }

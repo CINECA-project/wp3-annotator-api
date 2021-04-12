@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
-  title: Title
-  description: Title
+  title: CINECA WP3 Text Mining group concept annotator API
+  description: CINECA WP3 Text Mining group concept annotator API. Aggregates API for different text minig pipelies.
   version: 1.0.0
 #servers:
 #  - url: 'https://localhost:8080/v2'
@@ -20,12 +20,20 @@ paths:
           $ref: '#/components/responses/400Error'
     post:
       description: upload a file to annotate
-      parameters:
-      - $ref: '#/components/parameters/Model'
-      - $ref: '#/components/parameters/Concepts'
-      - $ref: '#/components/parameters/Text'
       requestBody:
-        $ref: '#/components/responses/FileDownload'
+        description: Multipart file upload
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+                model:
+                  $ref: '#/components/schemas/ModelParam'
+                concepts:
+                  $ref: '#/components/schemas/ConceptsParam'
       responses:
         '200':
           $ref: '#/components/responses/FileDownload'
@@ -98,26 +106,35 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Annotation'
+    ModelParam:
+      description: model to be used for annotation eg. Zooma
+      type: string
+      enum:
+        - LexMapr
+        - HESSO_SIB
+        - ZOOMA
+        - SORTA
+    ConceptsParam:
+      description: concept types to use for annotation
+      type: array
+      items:
+        type: string
+    TextParam:
+      description: text to annotate
+      type: string
   parameters:
     Model:
       name: model
       in: query
       description: model to be used for annotation eg. Zooma
       schema:
-        type: string
-        enum:
-          - LexMapr
-          - HESSO_SIB
-          - ZOOMA
-          - SORTA
+        $ref: '#/components/schemas/ModelParam'
     Concepts:
       name: concept
       in: query
       description: concept types to use for annotation
       schema:
-        type: array
-        items:
-          type: string
+        $ref: '#/components/schemas/ConceptsParam'
     Text:
       name: text
       in: query
@@ -139,8 +156,8 @@ components:
             type: array
             items:
               $ref: '#/components/schemas/Model'
-    FileUpload:
-      description: File upload for annotation
+    FileDownload:
+      description: Download annotated file
       content:
         application/octet-stream:
           schema:
@@ -156,11 +173,18 @@ components:
               message:
                 type: string
   requestBodies:
-    FileDownload:
-      description: Download annotated file
+    FileUpload:
+      description: Multipart file upload
       content:
-        application/octet-stream:
+        multipart/form-data:
           schema:
-            type: string
-            format: binary
+            type: object
+            properties:
+              file:
+                type: string
+                format: binary
+              model:
+                $ref: '#/components/schemas/ModelParam'
+              concepts:
+                $ref: '#/components/schemas/ConceptsParam'
 
