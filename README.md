@@ -28,6 +28,13 @@ mvn spring-boot:run
 ## Python
 ###  Generate Python server using Docker
 ```shell
+java -jar swagger-codegen-cli-2.3.1.jar generate 
+-i foo.yaml 
+-l python-flask 
+-o "swagger server\foo" 
+-t swagger-codegen-master\modules\swagger-codegen\src\main\resources\flaskConnexio
+
+
 docker run --rm -v "${PWD}:/local" openapitools/openapi-generator-cli generate \
 -i /local/api/open_api.yaml \
 -g python \

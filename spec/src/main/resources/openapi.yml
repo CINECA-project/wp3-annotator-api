@@ -1,0 +1,190 @@
+openapi: 3.0.3
+info:
+  title: CINECA WP3 Text Mining group concept annotator API
+  description: CINECA WP3 Text Mining group concept annotator API. Aggregates API for different text minig pipelies.
+  version: 1.0.0
+#servers:
+#  - url: 'https://localhost:8080/v2'
+paths:
+  /annotate:
+    get:
+      description: annotate a short pharse with concepts
+      parameters:
+        - $ref: '#/components/parameters/Model'
+        - $ref: '#/components/parameters/Concepts'
+        - $ref: '#/components/parameters/Text'
+      responses:
+        '200':
+          $ref: '#/components/responses/AnnotatedText'
+        '400':
+          $ref: '#/components/responses/400Error'
+    post:
+      description: upload a file to annotate
+      requestBody:
+        description: Multipart file upload
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+                model:
+                  $ref: '#/components/schemas/ModelParam'
+                concepts:
+                  $ref: '#/components/schemas/ConceptsParam'
+      responses:
+        '200':
+          $ref: '#/components/responses/FileDownload'
+        '400':
+          $ref: '#/components/responses/400Error'
+  /models:
+    get:
+      description: get available models for annotation
+      responses:
+        '200':
+          $ref: '#/components/responses/Models'
+        '400':
+          $ref: '#/components/responses/400Error'
+components:
+  schemas:
+    Ontology:
+      type: object
+      required:
+        - id
+        - label
+      properties:
+        id:
+          type: string
+        label:
+          type: string
+    Model:
+      type: object
+      required:
+        - modelName
+        - description
+        - concepts
+      properties:
+        modelName:
+          type: string
+        description:
+          type: string
+        concepts:
+          type: array
+          items:
+            type: string
+            enum:
+              - disease
+              - drug
+              - gender
+              - procedure
+    Annotation:
+      type: object
+      required:
+        - text
+        - ontology
+        - score
+        - source
+      properties:
+        text:
+          type: string
+        ontology:
+          $ref: '#/components/schemas/Ontology'
+        score:
+          type: number
+        source:
+          type: string
+    AnnotatedText:
+      type: object
+      required:
+        - text
+      properties:
+        text:
+          type: string
+        annotations:
+          type: array
+          items:
+            $ref: '#/components/schemas/Annotation'
+    ModelParam:
+      description: model to be used for annotation eg. Zooma
+      type: string
+      enum:
+        - LexMapr
+        - HESSO_SIB
+        - ZOOMA
+        - SORTA
+    ConceptsParam:
+      description: concept types to use for annotation
+      type: array
+      items:
+        type: string
+    TextParam:
+      description: text to annotate
+      type: string
+  parameters:
+    Model:
+      name: model
+      in: query
+      description: model to be used for annotation eg. Zooma
+      schema:
+        $ref: '#/components/schemas/ModelParam'
+    Concepts:
+      name: concept
+      in: query
+      description: concept types to use for annotation
+      schema:
+        $ref: '#/components/schemas/ConceptsParam'
+    Text:
+      name: text
+      in: query
+      description: text to annotate
+      schema:
+        type: string
+  responses:
+    AnnotatedText:
+      description: Success response with annotated text
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/AnnotatedText'
+    Models:
+      description: Success response with availble models
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/Model'
+    FileDownload:
+      description: Download annotated file
+      content:
+        application/octet-stream:
+          schema:
+            type: string
+            format: binary
+    400Error:
+      description: Invalid request
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+  requestBodies:
+    FileUpload:
+      description: Multipart file upload
+      content:
+        multipart/form-data:
+          schema:
+            type: object
+            properties:
+              file:
+                type: string
+                format: binary
+              model:
+                $ref: '#/components/schemas/ModelParam'
+              concepts:
+                $ref: '#/components/schemas/ConceptsParam'
+
