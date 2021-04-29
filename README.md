@@ -1,6 +1,15 @@
 # CINECA WP3 Concept Annotator Consolidated API
 Consolidated API for querying Work Package 3 Text Mining pipelines.
 
+Make sure you have Java 11+ installed in your system
+## Spring Boot
+```shell
+./mvnw clean install -e
+cd server
+./mvnw spring-boot:run
+```
+***
+
 ## Spring Boot
 ###  Generate Spring Boot server using Docker
 ```shell
