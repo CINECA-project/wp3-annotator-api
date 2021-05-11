@@ -1,6 +1,7 @@
 # project specific
 server_*
 .idea
+*.iml
 
 
 # Byte-compiled / optimized / DLL files
