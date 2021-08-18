@@ -11,4 +11,4 @@ cd server
 **
 
 ## Testing the API
-Go to [http://localhost:8080/](http://localhost:8080/) to test the API. At the moment only Zooma/EBI model is working. 
+Go to [http://localhost:8080/](http://localhost:8080/) to test the API. At the moment only `Zooma/EBI` `Model` is working. 

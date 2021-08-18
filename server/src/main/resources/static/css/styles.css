@@ -1,0 +1,9 @@
+.content {
+    max-width: 800px;
+    margin: auto;
+    margin-top: 10px;
+    background: #e8e8e8;
+    padding: 10px;
+    border-width: 2px;
+    border-style: solid;
+}
