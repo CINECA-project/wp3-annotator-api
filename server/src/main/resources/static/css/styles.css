@@ -1,0 +1,61 @@
+.tm-content {
+  max-width: 800px;
+  margin: 10px auto 0;
+  background: #e8e8e8;
+  padding: 10px;
+  border-width: 2px;
+  border-style: solid;
+}
+
+.btn-submit {
+  float: right;
+  color: #3b5998;
+  background: #ffffff;
+  border: 1px solid #3b5998;
+  border-radius: 3px;
+  padding: 10px 40px 10px 40px;
+  font-size: 16px;
+}
+
+.btn-submit:hover {
+  float: right;
+  color: #ffffff;
+  background: #3b5998;
+}
+
+.file-upload {
+  margin-top: 20px;
+  border: 1px solid #c1c1c1;
+  background: white;
+  width: 100%;
+  color: #9a9a9a;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+#resultTable {
+  display: none;
+  border-collapse: collapse;
+  width: 100%
+}
+
+#resultTable td, #resultTable th {
+  border: 1px solid #ddd;
+  padding: 8px
+}
+
+#resultTable tr:nth-child(even) {
+  background-color: #f2f2f2
+}
+
+#resultTable tr:hover {
+  background-color: #ddd
+}
+
+#resultTable th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #7eb9ea;
+  color: #fff
+}

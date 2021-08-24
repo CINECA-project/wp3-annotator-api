@@ -3,16 +3,25 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/styles.css" rel="stylesheet">
-    <script src="js/jquery.min.js"></script>
-    <script src="js/bootstrap.bundle.min.js"></script>
-    <script src="js/popper-base.min.js"></script>
-    <script src="js/tm_annotate.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
 
+    <style>
+        .content {
+            max-width: 800px;
+            margin: auto;
+            margin-top: 10px;
+            background: #e8e8e8;
+            padding: 10px;
+            border-width: 2px;
+            border-style: solid;
+        }
+    </style>
     <meta charset="UTF-8">
     <title>UI normalization</title>
 
+    <!--    <script src="jquery-3.5.1.min.js"></script>-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
         function annotate_text() {
             $.ajax({
@@ -48,15 +57,15 @@
         }
     </script>
 </head>
-<body class="tm-content">
+<body class="content">
 
-<!--     ----------TM CONTENT-------       -->
 <div class="container">
     <h1>CINECA Text Mining normalization</h1>
     <form>
         <label for="concept" class="label label-default">Concept type</label>
         <select name="concept" id="concept" class="form-select">
-            <option value="disease" selected>Disease</option>
+            <option value="empty"></option>
+            <option value="disease">Disease</option>
             <option value="drug">Drug</option>
             <option value="gender">Gender</option>
             <option value="procedure">Procedure</option>
@@ -67,20 +76,13 @@
             <option value="SORTA">SORTA</option>
             <option value="HESSO_SIB">HES-SO/SIB</option>
             <option value="LEXMAPR">LexMapr</option>
-            <option value="ZOOMA" selected>Zooma/EBI</option>
+            <option value="ZOOMA">Zooma/EBI</option>
         </select>
 
         <label for="text" class="label label-default">Text</label>
         <input type="text" id="text" class="form-control" name="text"/>
-
-<!--        <label for="file-upload" class="label label-default">Text</label>-->
-<!--        <textarea id="file-upload" class="form-control"></textarea>-->
-
-        <label for="file-upload" class="label label-default">Upload text file to annotate</label>
-        <input id="file-upload" type="file" class="file-upload"/>
-
         <br>
-        <button type="button" onclick="annotate();" class="btn btn-primary mt5 btn-submit">Submit</button>
+        <button type="button" onclick="annotate_text();" class="btn btn-primary mt5">Submit</button>
     </form>
 </div>
 
@@ -105,9 +107,6 @@
         </table>
     </div>
 </div>
-<!--     ----------TM CONTENT END-------       -->
-
-
 
 </body>
 </html>

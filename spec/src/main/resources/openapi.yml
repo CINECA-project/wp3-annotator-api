@@ -31,12 +31,12 @@ paths:
                   type: string
                   format: binary
                 model:
-                  $ref: '#/components/schemas/ModelParam'
-                concepts:
-                  $ref: '#/components/schemas/ConceptsParam'
+                  type: string
+                concept:
+                  type: string
       responses:
         '200':
-          $ref: '#/components/responses/FileDownload'
+          $ref: '#/components/responses/FileUploadAsync'
         '400':
           $ref: '#/components/responses/400Error'
   /models:
@@ -106,6 +106,13 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Annotation'
+    FileUploadResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        link:
+          type: string
     ModelParam:
       description: model to be used for annotation eg. Zooma
       type: string
@@ -163,6 +170,12 @@ components:
           schema:
             type: string
             format: binary
+    FileUploadAsync:
+      description: File upload response to check back later
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/FileUploadResponse'
     400Error:
       description: Invalid request
       content:
