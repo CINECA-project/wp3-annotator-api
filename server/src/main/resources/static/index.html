@@ -48,7 +48,7 @@
         }
     </script>
 </head>
-<body class="content">
+<body class="tm-content">
 
 <!--     ----------TM CONTENT-------       -->
 <div class="container">
@@ -56,8 +56,7 @@
     <form>
         <label for="concept" class="label label-default">Concept type</label>
         <select name="concept" id="concept" class="form-select">
-            <option value="empty"></option>
-            <option value="disease">Disease</option>
+            <option value="disease" selected>Disease</option>
             <option value="drug">Drug</option>
             <option value="gender">Gender</option>
             <option value="procedure">Procedure</option>
@@ -68,13 +67,20 @@
             <option value="SORTA">SORTA</option>
             <option value="HESSO_SIB">HES-SO/SIB</option>
             <option value="LEXMAPR">LexMapr</option>
-            <option value="ZOOMA">Zooma/EBI</option>
+            <option value="ZOOMA" selected>Zooma/EBI</option>
         </select>
 
         <label for="text" class="label label-default">Text</label>
         <input type="text" id="text" class="form-control" name="text"/>
+
+<!--        <label for="file-upload" class="label label-default">Text</label>-->
+<!--        <textarea id="file-upload" class="form-control"></textarea>-->
+
+        <label for="file-upload" class="label label-default">Upload text file to annotate</label>
+        <input id="file-upload" type="file" class="file-upload"/>
+
         <br>
-        <button type="button" onclick="annotate_text();" class="btn btn-primary mt5">Submit</button>
+        <button type="button" onclick="annotate();" class="btn btn-primary mt5 btn-submit">Submit</button>
     </form>
 </div>
 

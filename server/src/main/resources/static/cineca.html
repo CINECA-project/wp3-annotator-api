@@ -43,15 +43,14 @@
   <meta name="twitter:card" content="summary">
   <meta name="description" content="">
   <link rel="preconnect" href="https://images.squarespace-cdn.com/">
-<!---------------------------TM CONTENT--------------------------->
-<!--  <link href="css/bootstrap.min.css" rel="stylesheet">-->
+  <!---------------------------TM CONTENT--------------------------->
   <link href="css/styles.css" rel="stylesheet">
   <script src="js/jquery.min.js"></script>
   <script src="js/bootstrap.bundle.min.js"></script>
   <script src="js/popper-base.min.js"></script>
   <script src="js/tm_annotate.js"></script>
-<!-----------------------TM CONTENT END--------------------------->
-  <script async="" src="CINECA_WEBSITE_CONTENT/analytics.js"></script>
+  <!-----------------------TM CONTENT END--------------------------->
+<!--  <script async="" src="CINECA_WEBSITE_CONTENT/analytics.js"></script>-->
   <script type="text/javascript"
           src="CINECA_WEBSITE_CONTENT/QP2Fx8VKLHCCrJBph9yun0W29Nmcfb9HS5Kn206WLrMfeGJ2fFHN4UJLFRbh52jhWDmRjD4RFhJkZ26hjhwoFQ6oZ2wDZeZRjU7OMPG0jh80ZAFyOWs8Sab0SaBujW48Sagyjh90jhNlOeFTdcmRjPu3ScN7ZAFXOcmuOeFTdcmRjPuXZWFXO1FUiABkZWF3jAF8OcFzdPUCdhFydeyzSabCiaiaOcFTdcmRjPu3ScN7ZAFXOcmuOYiaikoR.js"></script>
   <style type="text/css">@font-face {
@@ -582,14 +581,16 @@
     "image": "//images.squarespace-cdn.com/content/v1/5cc2c7b2d86cc9589d33dfcc/1556547158578-BXTPXCMXE3BXP283688D/CINECA_logo.png",
     "@context": "http://schema.org",
     "@type": "WebSite"
-  }</script>
+  }
+  </script>
   <script type="application/ld+json">{
     "address": "",
     "image": "https://static1.squarespace.com/static/5cc2c7b2d86cc9589d33dfcc/t/5cc7065426e30a000133024d/1628609765216/",
     "openingHours": ", , , , , , ",
     "@context": "http://schema.org",
     "@type": "LocalBusiness"
-  }</script>
+  }
+  </script>
   <link rel="stylesheet" type="text/css" href="CINECA_WEBSITE_CONTENT/site.css">
   <script>Static.COOKIE_BANNER_CAPABLE = true;</script>
   <script>(function (i, s, o, g, r, a, m) {
@@ -1061,7 +1062,9 @@
           <div class="row sqs-row">
             <div class="col sqs-col-12 span-12">
               <div class="sqs-block html-block sqs-block-html" data-block-type="2" id="block-7c89330b73862963fb51">
-                <div class="sqs-block-content"><h2 style="white-space:pre-wrap;">CINECA Text Mining Aggregate API</h2></div>
+                <div class="sqs-block-content">
+                  <h2 style="white-space:pre-wrap;">CINECA Text Mining Aggregate API</h2>
+                </div>
               </div>
             </div>
           </div>
@@ -1086,48 +1089,63 @@
                 <div class="sqs-block form-block sqs-block-form" data-block-type="9" id="block-">
                   <div class="sqs-block-content">
 
-<!-- -------------------------------------------------------------------------------------------------------------------------------------------   -->
-<!-- --------------------------------------------------------CONTENT STARTS HERE----------------------------------------------------------------   -->
-<!-- -------------------------------------------------------------------------------------------------------------------------------------------   -->
+                    <!-- -------------------------------------------------------------------------------------------------------------------------------------------   -->
+                    <!-- --------------------------------------------------------CONTENT STARTS HERE----------------------------------------------------------------   -->
+                    <!-- -------------------------------------------------------------------------------------------------------------------------------------------   -->
                     <div class="form-wrapper">
+                      <div class="form-inner-wrapper">
+                        <div class="field-list clear">
+                          <div id="concept-wrapper" class="form-item field text required">
+                            <label class="title" for="concept">
+                              Concept type
+                              <span class="required" aria-hidden="true">*</span>
+                            </label>
+                            <select name="concept" id="concept" class="form-select field-element text"
+                                    aria-required="true">
+                              <option value="disease" selected>Disease</option>
+                              <option value="drug">Drug</option>
+                              <option value="gender">Gender</option>
+                              <option value="procedure">Procedure</option>
+                            </select>
+                          </div>
+                          <div id="model-wrapper" class="form-item field text required">
+                            <label class="title" for="model">
+                              Model
+                              <span class="required" aria-hidden="true">*</span>
+                            </label>
+                            <select name="model" id="model" class="form-select field-element text" aria-required="true">
+                              <option value="SORTA">SORTA</option>
+                              <option value="HESSO_SIB">HES-SO/SIB</option>
+                              <option value="LEXMAPR">LexMapr</option>
+                              <option value="ZOOMA" selected>Zooma/EBI</option>
+                            </select>
+                          </div>
+                          <div id="text-wrapper" class="form-item field text required">
+                            <label class="title" for="text">
+                              Text to annotate
+                              <span class="required" aria-hidden="true"></span>
+                            </label>
+                            <input id="text" class="field-element text" type="text" aria-required="true">
+                          </div>
 
+                          <div id="file-upload-wrapper" class="form-item field text required">
+                            <label class="title" for="text">
+                              Upload text file to annotate
+                              <span class="required" aria-hidden="true"></span>
+                            </label>
+                            <input id="file-upload" type="file" class="field-element text file-upload"/>
+                          </div>
 
-
-                      <!---------------------------TM CONTENT--------------------------->
-                      <div class="container">
-<!--                        <h1>CINECA Text Mining normalization</h1>-->
-                        <form>
-                          <label for="concept" class="label label-default">Concept type</label>
-                          <select name="concept" id="concept" class="form-select">
-                            <option value="empty"></option>
-                            <option value="disease">Disease</option>
-                            <option value="drug">Drug</option>
-                            <option value="gender">Gender</option>
-                            <option value="procedure">Procedure</option>
-                          </select>
-
-                          <label for="model" class="label label-default">Model</label>
-                          <select name="model" id="model" class="form-select">
-                            <option value="SORTA">SORTA</option>
-                            <option value="HESSO_SIB">HES-SO/SIB</option>
-                            <option value="LEXMAPR">LexMapr</option>
-                            <option value="ZOOMA">Zooma/EBI</option>
-                          </select>
-
-                          <label for="text" class="label label-default">Text</label>
-                          <input type="text" id="text" class="form-control" name="text"/>
-
-                          <br>
-                          <button type="button" onclick="annotate_text();" class="btn btn-primary mt5">Submit</button>
-                        </form>
+                          <button type="button" onclick="annotate();" class="btn btn-primary mt5 btn-submit">Submit</button>
+                        </div>
                       </div>
 
                       <hr>
-
-                      <div>
+                      <div id="results-wrapper">
                         <h3>Results</h3>
-                        <div id='results_text'></div>
+                        <div id='results-text'></div>
                         <div id='results'>
+                          <div id="upload-results"></div>
                           <table id="resultTable" class="table table-bordered table-hover">
                             <thead>
                             <tr>
@@ -1145,179 +1163,8 @@
                       </div>
                       <!--------------------------TM CONTENT END------------------------->
 
-
-
-
-
-
-
-                      <div class="form-inner-wrapper">
-                        <form data-form-id="5d63f0c319d5de0001bf1936" data-success-redirect="" autocomplete="on"
-                              method="POST" action="https://cineca-test.squarespace.com/" novalidate="" onsubmit="return (function (form) {
-  Y.use(&#39;squarespace-form-submit&#39;, &#39;node&#39;, function usingFormSubmit(Y) {
-    (new Y.Squarespace.FormSubmit(form)).submit({
-      formId: &#39;5d63f0c319d5de0001bf1936&#39;,
-      collectionId: &#39;5d63f0c06532a90001a574cd&#39;,
-      objectName: &#39;page-5d63f0c06532a90001a574cd&#39;
-    });
-  });
-  return false;
-})(this);">
-
-                          <div class="field-list clear">
-
-
-                            <fieldset id="name-yui_3_17_2_1_1566821888133_135075"
-                                      class="form-item fields name required">
-
-                              <legend class="title">
-                                Name
-
-                                <span class="required" aria-hidden="true">*</span>
-
-                              </legend>
-
-
-                              <div class="field first-name">
-                                <label class="caption">
-                                  <input class="field-element field-control" name="fname"
-                                         x-autocompletetype="given-name" type="text" spellcheck="false" maxlength="30"
-                                         data-title="First" aria-required="true">
-                                  <span class="caption-text">First Name</span>
-                                </label>
-                              </div>
-                              <div class="field last-name">
-                                <label class="caption">
-                                  <input class="field-element field-control" name="lname" x-autocompletetype="surname"
-                                         type="text" spellcheck="false" maxlength="30" data-title="Last"
-                                         aria-required="true">
-                                  <span class="caption-text">Last Name</span>
-                                </label>
-                              </div>
-                            </fieldset>
-
-
-                            <div id="text-yui_3_17_2_1_1566821888133_144244" class="form-item field text required">
-
-                              <label class="title" for="text-yui_3_17_2_1_1566821888133_144244-field">
-                                Organisation
-
-                                <span class="required" aria-hidden="true">*</span>
-
-                              </label>
-
-
-                              <input class="field-element text" type="text"
-                                     id="text-yui_3_17_2_1_1566821888133_144244-field" aria-required="true">
-                            </div>
-
-
-                            <div id="text-yui_3_17_2_1_1566821888133_143573" class="form-item field text required">
-
-                              <label class="title" for="text-yui_3_17_2_1_1566821888133_143573-field">
-                                Country
-
-                                <span class="required" aria-hidden="true">*</span>
-
-                              </label>
-
-
-                              <input class="field-element text" type="text"
-                                     id="text-yui_3_17_2_1_1566821888133_143573-field" aria-required="true">
-                            </div>
-
-
-                            <div id="email-yui_3_17_2_1_1566821888133_135076" class="form-item field email required">
-
-                              <label class="title" for="email-yui_3_17_2_1_1566821888133_135076-field">
-                                Email
-
-                                <span class="required" aria-hidden="true">*</span>
-
-                              </label>
-
-
-                              <input class="field-element" id="email-yui_3_17_2_1_1566821888133_135076-field"
-                                     name="email" type="email" autocomplete="email" spellcheck="false"
-                                     aria-required="true">
-                            </div>
-
-
-                            <div id="text-yui_3_17_2_1_1566821888133_135077" class="form-item field text required">
-
-                              <label class="title" for="text-yui_3_17_2_1_1566821888133_135077-field">
-                                Subject
-
-                                <span class="required" aria-hidden="true">*</span>
-
-                              </label>
-
-
-                              <input class="field-element text" type="text"
-                                     id="text-yui_3_17_2_1_1566821888133_135077-field" aria-required="true">
-                            </div>
-
-
-                            <div id="textarea-yui_3_17_2_1_1566821888133_135078"
-                                 class="form-item field textarea required">
-
-                              <label class="title" for="textarea-yui_3_17_2_1_1566821888133_135078-field">
-                                Message
-
-                                <span class="required" aria-hidden="true">*</span>
-
-                              </label>
-
-
-                              <textarea class="field-element " id="textarea-yui_3_17_2_1_1566821888133_135078-field"
-                                        aria-required="true"></textarea>
-                            </div>
-
-
-                            <fieldset id="checkbox-yui_3_17_2_1_1566832218360_33086"
-                                      class="form-item field checkbox required" aria-required="true">
-
-                              <legend class="title">
-                                I authorise the processing of my personal data in accordance with art. 13 GDPR 679/16 –
-                                "General Data Protection Regulation". The provided data will be exclusively used for the
-                                defined purposes and not be disclosed to any third party.
-
-                                <span class="required" aria-hidden="true">*</span>
-
-                              </legend>
-
-
-                              <div class="option"><label><input type="checkbox"
-                                                                name="checkbox-yui_3_17_2_1_1566832218360_33086-field"
-                                                                value="I authorise"> I authorise</label></div>
-
-                              <div class="option"><label><input type="checkbox"
-                                                                name="checkbox-yui_3_17_2_1_1566832218360_33086-field"
-                                                                value="I do not authorise"> I do not authorise</label>
-                              </div>
-
-                            </fieldset>
-
-
-                          </div>
-
-
-                          <div data-animation-role="button" class="
-          form-button-wrapper
-          
-            form-button-wrapper--align-left
-          
-        ">
-                            <input class="button sqs-system-button sqs-editable-button" type="submit" value="Submit">
-                          </div>
-
-
-                          <div class="hidden form-submission-text"><p class="">Thank you for contacting us! </p></div>
-                          <div class="hidden form-submission-html" data-submission-html=""></div>
-                        </form>
-                      </div>
                     </div>
-<!-- --------------------------------------------------------END OF CONTENT----------------------------------------------------------------   -->
+                    <!-- --------------------------------------------------------END OF CONTENT----------------------------------------------------------------   -->
 
                   </div>
                 </div>
