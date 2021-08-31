@@ -13,6 +13,8 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -27,11 +29,11 @@ public class HessosibCaller implements PipelineCaller {
     }
 
     @Override
-    public Annotation call(String text, String concept) {
-        return getAnnotations(text).orElse(new Annotation());
+    public List<Annotation> call(String text, String concept) {
+        return getAnnotations(text);
     }
 
-    public Optional<Annotation> getAnnotations(String text) {
+    public List<Annotation> getAnnotations(String text) {
         String hessosibUrl = UriComponentsBuilder
                 .fromHttpUrl(annotatorProperties.getHessosibUrl())
                 .queryParam("text", text)
@@ -42,18 +44,19 @@ public class HessosibCaller implements PipelineCaller {
                 restTemplate.exchange(request, new ParameterizedTypeReference<Map<String, HessosibResponse>>() {
                 }).getBody();
 
-        Optional<Annotation> annotation;
-        if (response != null && response.containsKey("0")) {
-            float score = response.get("0").getScore();
-            Ontology ontology = response.get("0").getOntology();
-
-            annotation = Optional.of(new Annotation().text(text)
-                                                     .ontology(ontology).score(new BigDecimal(score))
-                                                     .source("HES-SO/SIB"));
-        } else {
-            annotation = Optional.empty();
+        List<Annotation> annotations = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            if (response.containsKey(String.valueOf(i))) {
+                float score = response.get(String.valueOf(i)).getScore();
+                Ontology ontology = response.get(String.valueOf(i)).getOntology();
+                annotations.add(new Annotation().text(text)
+                                                .ontology(ontology).score(new BigDecimal(score))
+                                                .source("HES-SO/SIB"));
+            } else {
+                break;
+            }
         }
 
-        return annotation;
+        return annotations;
     }
 }

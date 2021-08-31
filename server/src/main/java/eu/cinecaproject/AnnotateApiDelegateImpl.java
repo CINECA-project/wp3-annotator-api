@@ -32,7 +32,7 @@ public class AnnotateApiDelegateImpl implements AnnotateApiDelegate {
                                                      String text) {
         AnnotatedText annotatedText = new AnnotatedText().text(text).annotations(new ArrayList<>());
         List<Annotation> annotations = annotatedText.getAnnotations();
-        Annotation annotation;
+        List<Annotation> annotation;
         switch (model) {
         case HESSO_SIB:
             annotation = hessosibCaller.call(text, concept.toString());
@@ -45,7 +45,7 @@ public class AnnotateApiDelegateImpl implements AnnotateApiDelegate {
             annotation = zoomaCaller.call(text, concept.toString());
             break;
         }
-        annotations.add(annotation);
+        annotations.addAll(annotation);
 
         return ResponseEntity.ok(annotatedText);
     }

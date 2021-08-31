@@ -17,6 +17,8 @@ import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -34,37 +36,11 @@ public class ZoomaCaller implements PipelineCaller {
     }
 
     @Override
-    public Annotation call(String text, String concept) {
-        return getAnnotations(text, concept).orElse(new Annotation());//todo
+    public List<Annotation> call(String text, String concept) {
+        return getAnnotations(text, concept);
     }
 
-
-    public Annotation call1(String text, String concept) {
-        ResponseEntity<String> response = restTemplate.getForEntity(url + "?propertyValue=" + text + "&propertyType=" + concept, String.class);
-        System.out.println(response.toString());
-
-        String iri = "error";
-        try {
-            ObjectMapper mapper = new ObjectMapper();
-            JsonNode root = mapper.readTree(response.getBody());
-            if (root.size() > 0) {
-                JsonNode first = root.get(0);
-                if (first.has("semanticTags") && first.get("semanticTags").size() > 0) {
-                    iri = first.get("semanticTags").get(0).asText();
-                }
-            }
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-
-        return new Annotation().text(text)
-                .ontology(new Ontology().id(iri).label("placeholder"))
-                .score(new BigDecimal(81))
-                .source("ZOOMA");
-    }
-
-
-    public Optional<Annotation> getAnnotations(String text, String concept) {
+    public List<Annotation> getAnnotations(String text, String concept) {
         String zoomaUrl = UriComponentsBuilder
                 .fromHttpUrl(annotatorProperties.getZoomaUrl())
                 .queryParam("propertyValue", text)
@@ -72,20 +48,22 @@ public class ZoomaCaller implements PipelineCaller {
                 .build().toString();
         ZoomaResponse[] response = restTemplate.getForObject(zoomaUrl, ZoomaResponse[].class);
 
-        Optional<Annotation> annotation;
+        List<Annotation> annotations = new ArrayList<>(response.length);
         if (response != null && response.length > 0) {
-            String iri = response[0].getSemanticTags().get(0);
-            String confidence = response[0].getConfidence();
-            int score = confidence.equalsIgnoreCase("HIGH") ? 80 : 50;
-            Ontology ontology = ontologyLookup.lookup(iri).orElse(new Ontology());//todo
+            for (ZoomaResponse res : response) {
+                String iri = res.getSemanticTags().get(0);
+                String confidence = res.getConfidence();
+                int score = "HIGH".equalsIgnoreCase(confidence) ? 80 : 50;
+                Ontology ontology = ontologyLookup.lookup(iri).orElse(new Ontology());
 
-            annotation = Optional.of(new Annotation().text(text)
-                    .ontology(ontology).score(new BigDecimal(score)).source("Zooma"));
-        } else {
-            annotation = Optional.empty();
+                annotations.add(new Annotation().text(text)
+                                                         .ontology(ontology)
+                                                         .score(new BigDecimal(score))
+                                                         .source("Zooma"));
+            }
         }
 
-        return annotation;
+        return annotations;
     }
 
 
