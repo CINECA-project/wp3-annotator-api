@@ -1,6 +1,7 @@
 package eu.cinecaproject;
 
 import eu.cinecaproject.api.AnnotateApiDelegate;
+import eu.cinecaproject.hessosib.HessosibCaller;
 import eu.cinecaproject.model.AnnotatedText;
 import eu.cinecaproject.model.Annotation;
 import eu.cinecaproject.model.FileUploadResponse;
@@ -18,9 +19,11 @@ import java.util.UUID;
 @Service
 public class AnnotateApiDelegateImpl implements AnnotateApiDelegate {
     private final ZoomaCaller zoomaCaller;
+    private final HessosibCaller hessosibCaller;
 
-    public AnnotateApiDelegateImpl(ZoomaCaller zoomaCaller) {
+    public AnnotateApiDelegateImpl(ZoomaCaller zoomaCaller, HessosibCaller hessosibCaller) {
         this.zoomaCaller = zoomaCaller;
+        this.hessosibCaller = hessosibCaller;
     }
 
     @Override
@@ -32,6 +35,8 @@ public class AnnotateApiDelegateImpl implements AnnotateApiDelegate {
         Annotation annotation;
         switch (model) {
         case HESSO_SIB:
+            annotation = hessosibCaller.call(text, concept.toString());
+            break;
         case LEXMAPR:
         case SORTA:
             return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
