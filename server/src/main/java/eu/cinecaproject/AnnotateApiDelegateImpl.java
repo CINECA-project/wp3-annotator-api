@@ -2,6 +2,8 @@ package eu.cinecaproject;
 
 import eu.cinecaproject.api.AnnotateApiDelegate;
 import eu.cinecaproject.hessosib.HessosibCaller;
+import eu.cinecaproject.lexmapr.LexMaprCaller;
+import eu.cinecaproject.lexmapr.models.LexMaprResponse;
 import eu.cinecaproject.model.AnnotatedText;
 import eu.cinecaproject.model.Annotation;
 import eu.cinecaproject.model.FileUploadResponse;
@@ -16,14 +18,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+
 @Service
 public class AnnotateApiDelegateImpl implements AnnotateApiDelegate {
     private final ZoomaCaller zoomaCaller;
     private final HessosibCaller hessosibCaller;
-
-    public AnnotateApiDelegateImpl(ZoomaCaller zoomaCaller, HessosibCaller hessosibCaller) {
+    private final LexMaprCaller lexMaprCaller;
+    public AnnotateApiDelegateImpl(ZoomaCaller zoomaCaller, HessosibCaller hessosibCaller, LexMaprCaller lexMaprCaller) {
         this.zoomaCaller = zoomaCaller;
         this.hessosibCaller = hessosibCaller;
+        this.lexMaprCaller = lexMaprCaller;
     }
 
     @Override
@@ -55,13 +59,29 @@ public class AnnotateApiDelegateImpl implements AnnotateApiDelegate {
                                                            String model,
                                                            String concept) {
 
-        String baseUrl = "www.ebi.ac.uk/biosamples/"; //todo have a correct URL
-        UUID uuid = UUID.randomUUID(); //todo store it somewhere for later use
 
-        String url = baseUrl + uuid;
         FileUploadResponse response = new FileUploadResponse();
-        response.setMessage("Your results will be available to download shortly. Please checkback later with the below link.");
-        response.setLink(url);
+
+
+        switch (model) {
+            case "LEXMAPR":
+                String lexmaprBaseUrl = "https://lexmapr.cidgoh.ca";
+                LexMaprResponse result = lexMaprCaller.call(file);
+                response.setMessage("Your Lexmapr results will be available to download shortly. Please checkback later with the below link.");
+                response.setLink(lexmaprBaseUrl+result.getOutputUrl().replace("/api",""));
+                break;
+            case "SORTA":
+            case "HESSO_SIB":
+            case "ZOOMA":
+                String baseUrl = "www.ebi.ac.uk/biosamples/"; //todo have a correct URL
+                UUID uuid = UUID.randomUUID(); //todo store it somewhere for later use
+
+                String url = baseUrl + uuid;
+                response.setMessage("Your results will be available to download shortly. Please checkback later with the below link.");
+                response.setLink(url);
+            default:
+                break;
+        }
         return ResponseEntity.ok(response);
 
     }
